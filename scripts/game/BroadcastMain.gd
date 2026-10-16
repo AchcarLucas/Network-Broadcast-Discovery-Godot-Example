@@ -82,9 +82,9 @@ func _on_start_stop_broadcast_button_pressed() -> void:
 func _on_start_broadcast_listener_button_pressed() -> void:
 	print(" - %s - %d" % [get_stack()[0]["function"], get_instance_id()])
 
-	_start_sending_broadcast = !_start_sending_broadcast
+	_start_listing_broadcast = !_start_listing_broadcast
 
-	if _start_sending_broadcast:
+	if _start_listing_broadcast:
 		%StartBroadcastListenerButton.text = "Stop Broadcast Listening"
 	else:
 		%StartBroadcastListenerButton.text = "Start Broadcast Listening"
@@ -93,9 +93,9 @@ func _on_start_broadcast_listener_button_pressed() -> void:
 func _on_start_broadcast_sending_button_pressed() -> void:
 	print(" - %s - %d" % [get_stack()[0]["function"], get_instance_id()])
 
-	_start_listing_broadcast = !_start_listing_broadcast
+	_start_sending_broadcast = !_start_sending_broadcast
 
-	if _start_listing_broadcast:
+	if _start_sending_broadcast:
 		%StartBroadcastSendingButton.text = "Stop Sending Broadcast Message"
 	else:
 		%StartBroadcastSendingButton.text = "Start Sending Broadcast Message"
