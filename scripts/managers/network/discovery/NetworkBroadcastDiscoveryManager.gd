@@ -17,6 +17,21 @@ func initialize(port: int = 47777) -> Error:
 
 	_udp.set_broadcast_enabled(true)
 
+	for interface in IP.get_local_interfaces():
+		print("Interface: ", interface["name"])
+		print("Address: ", interface["addresses"])
+
+		error = _udp.join_multicast_group(
+			_MULTICAST_IP,
+			interface["name"]
+		)
+
+		if error != OK:
+			push_error("[%s] Multicast join failure: <%s> " % [
+				interface["name"],
+				error_string(error)
+			])
+
 	return Error.OK
 
 func close() -> void:
