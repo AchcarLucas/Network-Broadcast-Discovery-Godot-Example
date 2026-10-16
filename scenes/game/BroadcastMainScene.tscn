@@ -1,0 +1,80 @@
+[gd_scene format=3 uid="uid://blu40ioiv2a18"]
+
+[ext_resource type="Script" uid="uid://y4jrbo0o348k" path="res://scripts/game/BroadcastMain.gd" id="1_1h3ym"]
+
+[node name="BroadcastMainScene" type="Control" unique_id=1626558022]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_1h3ym")
+
+[node name="HBoxContainer" type="VBoxContainer" parent="." unique_id=1524136689]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 26.0
+offset_bottom = -26.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="UDPPortLabel" type="Label" parent="HBoxContainer" unique_id=654396828]
+layout_mode = 2
+text = "UDP Broadcast PORT"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="UDPPortLineEdit" type="LineEdit" parent="HBoxContainer" unique_id=207343156]
+unique_name_in_owner = true
+layout_mode = 2
+text = "47777"
+alignment = 1
+
+[node name="StartStopBroadcastButton" type="Button" parent="HBoxContainer" unique_id=247694171]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+text = "Initialize Broadcast UDP"
+
+[node name="BroadcastSendingTextEdit" type="TextEdit" parent="HBoxContainer" unique_id=1772087228]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 350)
+layout_mode = 2
+placeholder_text = "Write your message here to send via broadcast"
+
+[node name="StartBroadcastSendingButton" type="Button" parent="HBoxContainer" unique_id=1662587844]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+text = "Start Sending Broadcast Message"
+
+[node name="BroadcastListenerTextEdit" type="TextEdit" parent="HBoxContainer" unique_id=2063084642]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 350)
+layout_mode = 2
+placeholder_text = "Here you will receive messages sent via broadcast"
+editable = false
+
+[node name="StartBroadcastListenerButton" type="Button" parent="HBoxContainer" unique_id=620380761]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+text = "Start Broadcast Listening"
+
+[node name="BroadcastLoggerTextEdit" type="TextEdit" parent="HBoxContainer" unique_id=1174448597]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 250)
+layout_mode = 2
+placeholder_text = "Here are the logger messages"
+editable = false
+
+[connection signal="pressed" from="HBoxContainer/StartStopBroadcastButton" to="." method="_on_start_stop_broadcast_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/StartBroadcastSendingButton" to="." method="_on_start_broadcast_sending_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/StartBroadcastListenerButton" to="." method="_on_start_broadcast_listener_button_pressed"]
