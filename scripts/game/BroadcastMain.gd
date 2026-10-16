@@ -25,6 +25,10 @@ func _process(delta: float) -> void:
 			_network_broadcast_discovery.broadcast(
 				packet
 			)
+
+			_network_broadcast_discovery.multicast(
+				packet
+			)
 			_timer = 0.0
 
 	if _start_listing_broadcast:
