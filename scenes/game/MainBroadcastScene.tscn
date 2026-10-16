@@ -1,5 +1,7 @@
 [gd_scene format=3 uid="uid://blu40ioiv2a18"]
 
+[ext_resource type="Script" uid="uid://y4jrbo0o348k" path="res://scripts/game/MainBroadcast.gd" id="1_3f2n8"]
+
 [node name="MainScene" type="Control" unique_id=1626558022]
 layout_mode = 3
 anchors_preset = 15
@@ -7,6 +9,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_3f2n8")
 
 [node name="HBoxContainer" type="VBoxContainer" parent="." unique_id=1524136689]
 layout_mode = 1
