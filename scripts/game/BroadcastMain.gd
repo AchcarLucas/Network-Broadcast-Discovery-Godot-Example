@@ -9,6 +9,8 @@ var _start_listing_broadcast: bool = false
 
 var _timer:float = 0.0
 
+var _unique_id: int = 1
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
@@ -23,7 +25,7 @@ func _process(delta: float) -> void:
 		if _timer >= ANNOUNCE_INTERVAL:
 			var error: Error = Error.OK
 
-			var broadcast_packet :PackedByteArray = ("[%s] %s" % ["Broadcast", %BroadcastSendingTextEdit.text]).to_utf8_buffer()
+			var broadcast_packet :PackedByteArray = ("[%d] [%s] %s" % [_unique_id, "Broadcast", %BroadcastSendingTextEdit.text]).to_utf8_buffer()
 
 			error = _network_broadcast_discovery.broadcast(
 				broadcast_packet
@@ -34,7 +36,7 @@ func _process(delta: float) -> void:
 					"Error to broadcast <%s>" % [error_string(error)]
 				)
 
-			var multicast_packet :PackedByteArray = ("[%s] %s" % ["Multicast", %BroadcastSendingTextEdit.text]).to_utf8_buffer()
+			var multicast_packet :PackedByteArray = ("[%d] [%s] %s" % [_unique_id, "Multicast", %BroadcastSendingTextEdit.text]).to_utf8_buffer()
 			error = _network_broadcast_discovery.multicast(
 				multicast_packet
 			)
@@ -45,6 +47,7 @@ func _process(delta: float) -> void:
 				)
 
 			_timer = 0.0
+			_unique_id += 1
 
 	if _start_listing_broadcast:
 		if _network_broadcast_discovery.has_packet_available():
