@@ -22,13 +22,27 @@ func _process(delta: float) -> void:
 		_timer += delta
 		if _timer >= ANNOUNCE_INTERVAL:
 			var packet :PackedByteArray = %BroadcastSendingTextEdit.text.to_utf8_buffer()
-			_network_broadcast_discovery.broadcast(
+
+			var error: Error = Error.OK
+
+			error = _network_broadcast_discovery.broadcast(
 				packet
 			)
 
-			_network_broadcast_discovery.multicast(
+			if error != Error.OK:
+				_append_broadcast_logger(
+					"Error to broadcast <%s>" % [error_string(error)]
+				)
+
+			error = _network_broadcast_discovery.multicast(
 				packet
 			)
+
+			if error != Error.OK:
+				_append_broadcast_logger(
+					"Error to broadcast <%s>" % [error_string(error)]
+				)
+
 			_timer = 0.0
 
 	if _start_listing_broadcast:

@@ -38,7 +38,7 @@ func _put_packet(packet: PackedByteArray) -> Error:
 
 	if error != OK:
 		push_warning(
-			"Failed to announce server: %s" % error_string(error)
+			"Failed to 'put packet': %s" % error_string(error)
 		)
 		return error
 
