@@ -1,6 +1,6 @@
 extends Control
 
-var _network_discovery: NetworkDiscoveryManager
+var _network_broadcast_discovery: NetworkBroadcastDiscoveryManager
 
 const ANNOUNCE_INTERVAL = 2.0
 
@@ -15,7 +15,7 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if _network_discovery == null:
+	if _network_broadcast_discovery == null:
 		return
 	
 	
@@ -24,14 +24,14 @@ func _process(delta: float) -> void:
 		_timer += delta
 		if _timer >= ANNOUNCE_INTERVAL:
 			var packet :PackedByteArray = %BroadcastSendingTextEdit.text.to_utf8_buffer()
-			_network_discovery.broadcast(
+			_network_broadcast_discovery.broadcast(
 				packet
 			)
 			_timer = 0.0
 
 	if _start_listing_broadcast:
-		if _network_discovery.has_packet_available():
-			var response:Dictionary = _network_discovery.listener()
+		if _network_broadcast_discovery.has_packet_available():
+			var response:Dictionary = _network_broadcast_discovery.listener()
 			
 			_append_broadcast_listener(
 				"Sender <%s>: %s" % [response.get('sender_ip'), response.get('packet').get_string_from_utf8()]

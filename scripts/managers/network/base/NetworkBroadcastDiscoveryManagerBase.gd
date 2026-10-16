@@ -1,4 +1,4 @@
-class_name NetworkDiscoveryManagerBase extends Node
+class_name NetworkBroadcastDiscoveryManagerBase extends Node
 
 const _BROADCAST_IP: String = "255.255.255.255"
 

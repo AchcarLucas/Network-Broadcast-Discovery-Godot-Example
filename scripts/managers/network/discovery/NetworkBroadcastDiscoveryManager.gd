@@ -1,4 +1,4 @@
-class_name NetworkDiscoveryManager extends NetworkDiscoveryManagerBase
+class_name NetworkBroadcastDiscoveryManager extends NetworkBroadcastDiscoveryManagerBase
 
 func initialize(port: int = 47777) -> Error:
 	if _udp != null:
