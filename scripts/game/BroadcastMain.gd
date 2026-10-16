@@ -2,7 +2,7 @@ extends Control
 
 var _network_broadcast_discovery: NetworkBroadcastDiscoveryManager
 
-const ANNOUNCE_INTERVAL = 2.0
+const ANNOUNCE_INTERVAL = 1.0
 
 var _start_sending_broadcast: bool = false
 var _start_listing_broadcast: bool = false
@@ -52,11 +52,11 @@ func _append_broadcast_listener(message: String) -> void:
 func _on_start_stop_broadcast_button_pressed() -> void:
 	print(" - %s - %d" % [get_stack()[0]["function"], get_instance_id()])
 
-	if _network_discovery == null:
-		_network_discovery = NetworkDiscoveryManager.new()
+	if _network_broadcast_discovery == null:
+		_network_broadcast_discovery = NetworkBroadcastDiscoveryManager.new()
 
 		var port:int = int(%UDPPortLineEdit.text)
-		var error = _network_discovery.initialize(port)
+		var error = _network_broadcast_discovery.initialize(port)
 
 		if error != Error.OK:
 			_append_broadcast_logger(
@@ -70,8 +70,8 @@ func _on_start_stop_broadcast_button_pressed() -> void:
 
 		%StartStopBroadcastButton.text = "Close Broadcast UDP"
 	else:
-		_network_discovery.close()
-		_network_discovery = null
+		_network_broadcast_discovery.close()
+		_network_broadcast_discovery = null
 
 		_append_broadcast_logger(
 			"The broadcast bind was successfully closed"
