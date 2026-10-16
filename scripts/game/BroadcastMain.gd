@@ -17,8 +17,6 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if _network_broadcast_discovery == null:
 		return
-	
-	
 
 	if 	_start_sending_broadcast:
 		_timer += delta
@@ -62,6 +60,7 @@ func _on_start_stop_broadcast_button_pressed() -> void:
 			_append_broadcast_logger(
 				"An error occurred while initializing the broadcast %s" % [error_string(error)]
 			)
+			_network_broadcast_discovery = null
 			return
 		
 		_append_broadcast_logger(
