@@ -18,8 +18,7 @@ func initialize(port: int = 47777) -> Error:
 	_udp.set_broadcast_enabled(true)
 
 	for interface in IP.get_local_interfaces():
-		print("Interface: ", interface["name"])
-		print("Address: ", interface["addresses"])
+		print_debug("Address <%s> - Interface <%s>" % [interface["addresses"], interface["name"]])
 
 		error = _udp.join_multicast_group(
 			_MULTICAST_IP,
@@ -34,20 +33,6 @@ func initialize(port: int = 47777) -> Error:
 
 	return Error.OK
 
-func close() -> void:
-	_udp.close()
-
-func has_packet_available() -> bool:
-	return _udp.get_available_packet_count() > 0
-
-func broadcast(packet: PackedByteArray) -> Error:
-	_udp.set_dest_address(_BROADCAST_IP, _port)
-	return _put_packet(packet)
-
-func multicast(packet: PackedByteArray) -> Error:
-	_udp.set_dest_address(_MULTICAST_IP, _port)
-	return _put_packet(packet)
-
 func _put_packet(packet: PackedByteArray) -> Error:
 	var error := _udp.put_packet(packet)
 
@@ -58,6 +43,25 @@ func _put_packet(packet: PackedByteArray) -> Error:
 		return error
 
 	return Error.OK
+
+func close() -> void:
+	_udp.close()
+
+func has_packet_available() -> bool:
+	return _udp.get_available_packet_count() > 0
+
+func broadcast(packet: PackedByteArray) -> void:
+	var targets := get_broadcast_targets()
+	for target in targets:
+		print_debug("Package sent to <%s:%d>" % [target, _port])
+		var error := _udp.set_dest_address(target, _port)
+		if error != OK:
+			push_warning("Unable to use the destination <%s> - error <%s>" % [target, error_string(error)])
+			continue
+		error = _put_packet(packet)
+		if error != OK:
+			push_warning("Unable to send the package to <%s> - error <%s>" % [target, error_string(error)])
+			continue
 
 func listener() -> Dictionary:
 	var packet: PackedByteArray
