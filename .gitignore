@@ -10,6 +10,7 @@
 export.cfg
 export_credentials.cfg
 *.tmp
+build
 
 # Imported translations (automatically generated from CSV files)
 *.translation
