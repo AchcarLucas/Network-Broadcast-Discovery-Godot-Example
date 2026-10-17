@@ -1,4 +1,4 @@
-# Network Broadcast Discovery - Godot Demo
+# Network Broadcast Discovery - Godot Example
 
 ## Overview
 
