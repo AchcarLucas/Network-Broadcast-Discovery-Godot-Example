@@ -6,6 +6,10 @@ Network Broadcast Discovery is an educational demo project built with Godot 4.7.
 
 The main scene provides a small interface to choose a UDP port, send a text announcement, and inspect received messages and their sender IP addresses. This is a standalone example project, not a plugin or a complete server browser.
 
+## Screenshots
+
+<img src="image/image-1.png" alt="Network Broadcast Discovery instance running" width="30%"> |
+
 ## Features
 
 - Configurable UDP port, defaulting to `47777`.
@@ -29,7 +33,7 @@ When sending is enabled, the main scene sends the entered text once per second. 
 [id] [Broadcast] message text
 ```
 
-The ID starts at `1` and increments for each announcement from that instance. Each packet is sent to `255.255.255.255`, `239.255.77.77`, and broadcast addresses derived from local IPv4 interfaces.
+The ID starts at `1` and increments for each announcement from that instance. Each packet is sent to `255.255.255.255`, `239.255.77.77`, and broadcast addresses derived from local IPv4 interfaces (/24).
 
 ### 3. Listen for Announcements
 
@@ -48,12 +52,12 @@ By exploring this example, you can learn about:
 ## Getting Started
 
 1. Open `project.godot` in Godot 4.7 and run the configured main scene.
-2. On each device or instance, enter the same available UDP port (the default is `47777`) and click **Initialize Broadcast UDP**.
-3. In one instance, enter a message and click **Start Sending Broadcast Message**.
-4. In the other instance, click **Start Broadcast Listening** to view announcements.
+2. On each of two different machines on the same LAN, enter the same available UDP port (the default is `47777`) and click **Initialize Broadcast UDP**.
+3. On one machine, enter a message and click **Start Sending Broadcast Message**.
+4. On the other machine, click **Start Broadcast Listening** to view announcements.
 5. Stop sending/listening and click **Close Broadcast UDP** when finished.
 
-Use separate devices on the same LAN for the most representative test. Multiple processes on one machine may not be able to bind the same UDP port, depending on the operating system.
+Testing requires two different machines. The UDP socket binds the selected port without enabling port reuse, so a second instance cannot bind the same port on the same machine.
 
 ## Important Networking Notes
 
